@@ -1,5 +1,6 @@
 package com.rnagaraju.springboot.todo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -35,8 +36,10 @@ public class TodoController {
 	}
 	
 	@RequestMapping(value="add-todo",method=RequestMethod.POST)
-	@ResponseBody
-	public String addTodoPage(@RequestParam String description) {
-		return "Your Todo will be constructed with:"+description+", and that's it. You are all done!";
+//	@ResponseBody
+	public String addTodoPage(@RequestParam String description,ModelMap model) {
+		String username=(String) model.get("name"); 
+		todoService.addTodo(username, description, LocalDate.now(), false);
+		return "redirect:list-todos";
 	}
-}
+} 
