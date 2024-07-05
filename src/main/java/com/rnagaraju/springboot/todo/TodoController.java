@@ -27,19 +27,23 @@ public class TodoController {
 	public String listAllTodos(ModelMap model) {
 		List<Todo> todos=todoService.findByUsername("in28minutes");
 		model.put("todos", todos);
-		return "listTodos";
+		return "listTodos"; 
 	}
 	
 	@RequestMapping(value="add-todo",method=RequestMethod.GET)
-	public String showNewTodoPage() {
+	public String showNewTodoPage(ModelMap model) {
+		Todo newTodo=new Todo();
+		newTodo.setDescription("Default Desc"); //One-way bind
+		model.put("todo", newTodo);
 		return "addTodo";
 	}
 	
 	@RequestMapping(value="add-todo",method=RequestMethod.POST)
 //	@ResponseBody
-	public String addTodoPage(@RequestParam String description,ModelMap model) {
+	public String addTodoPage(ModelMap model, Todo todo) {
+		//Two-way bind from JSP
 		String username=(String) model.get("name"); 
-		todoService.addTodo(username, description, LocalDate.now(), false);
+		todoService.addTodo(username, todo.getDescription(), LocalDate.now(), false);
 		return "redirect:list-todos";
 	}
 } 

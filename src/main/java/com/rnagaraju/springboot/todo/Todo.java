@@ -21,6 +21,10 @@ public class Todo {
 		this.done = done;
 	}
 	
+	public Todo() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
