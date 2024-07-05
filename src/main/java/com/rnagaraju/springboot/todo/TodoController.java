@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TodoController {
 
 	@RequestMapping(value="list-todos")
-	@ResponseBody
+//	@ResponseBody
 	public String listAllTodos() {
-		return "listOfTodos";
+		return "listTodos";
 	}
 }
