@@ -52,5 +52,11 @@ public class Todo {
 	public void setDone(boolean done) {
 		this.done = done;
 	}
+
+	@Override
+	public String toString() {
+		return "Todo [id=" + id + ", username=" + username + ", description=" + description + ", dueDate=" + dueDate
+				+ ", done=" + done + "]";
+	}
 	
 }
