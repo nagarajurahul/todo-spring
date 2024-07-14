@@ -62,4 +62,11 @@ public class TodoController {
 		
 	}
 	
+	@RequestMapping(value="show-todo",method=RequestMethod.GET)
+	@ResponseBody
+	public String showTodo(@RequestParam int id) {
+//		return "Here";
+		return todoService.findTodoById(id).toString();
+	}
+	
 } 
