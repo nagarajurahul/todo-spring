@@ -84,6 +84,9 @@ public class TodoController {
 //		System.out.print("Inside update to-do");
 //		System.out.println(model.getAttribute("todo"));
 		
+		String username=(String) model.get("name"); 
+		todo.setUsername(username);
+		
 		todoService.updateTodo(todo);
 		return "redirect:list-todos";
 	}
