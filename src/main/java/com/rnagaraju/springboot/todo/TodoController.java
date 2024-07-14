@@ -50,7 +50,7 @@ public class TodoController {
 
 		//Two-way bind from JSP for description and to do object basically
 		String username=(String) model.get("name"); 
-		todoService.addTodo(username, todo.getDescription(), LocalDate.now(), false);
+		todoService.addTodo(username, todo.getDescription(), todo.getDueDate(), false);
 		return "redirect:list-todos";
 	}
 	

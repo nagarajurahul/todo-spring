@@ -15,10 +15,17 @@ prefix="form" uri="http://www.springframework.org/tags/form" %>
       <div><a href="/list-todos">Manage</a> your todos.</div>
 
       <form:form method="post" modelAttribute="todo">
+      <fieldset class="mb-3">
         Description:
         <form:input type="text" path="description" required="required" />
         <form:errors path="description" cssClass="text-warning" />
-        <input type="submit" class="btn btn-success" />
+       </fieldset>
+       <fieldset class="mb-3">
+        Due Date:
+        <form:input type="text" path="dueDate" required="required" />
+        <form:errors path="dueDate" cssClass="text-warning" />
+       </fieldset>
+       <input type="submit" class="btn btn-success" />
       </form:form>
 
       <script src="webjars/bootstrap/5.1.3/js/bootstrap.min.js"></script>
