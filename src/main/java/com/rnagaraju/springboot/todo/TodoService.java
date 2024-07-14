@@ -44,4 +44,11 @@ public class TodoService {
 		Todo todo = todos.stream().filter(predicate).findFirst().get();
 		return todo;
 	}
+
+	public void updateTodo(Todo updateTodo) {
+		Predicate<? super Todo> predicate = todo -> todo.getId() == updateTodo.getId();
+		todos.removeIf(predicate);
+		todos.add(updateTodo);
+		
+	}
 }

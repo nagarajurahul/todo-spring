@@ -14,7 +14,7 @@ prefix="form" uri="http://www.springframework.org/tags/form" %>
       <div>Welcome to Update Todo Page - ${name}</div>
       <div><a href="/list-todos">Manage</a> your todos.</div>
 
-      <form:form method="post" modelAttribute="todo">
+      <form:form action="/update-todo?id=${todo.id}" method="post" modelAttribute="todo">
         Description:
         <form:input type="text" path="description" required="required" />
         <form:errors path="description" cssClass="text-warning" />

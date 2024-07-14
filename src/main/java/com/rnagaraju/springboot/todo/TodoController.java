@@ -73,6 +73,18 @@ public class TodoController {
 	public String showUpdateTodoPage(ModelMap model,@RequestParam int id) {
 		Todo todo=todoService.findTodoById(id);
 		model.put("todo", todo);
+		System.out.println(model.getAttribute("todo"));
 		return "updateTodo";
+	}
+	
+	@RequestMapping(value="update-todo", method=RequestMethod.POST)
+//	@ResponseBody
+	public String updateTodo(ModelMap model, @Valid Todo todo, BindingResult result, @RequestParam int id) {
+		// @Valid Todo todo, BindingResult result -  very importannt, without this it was null in model.todo
+//		System.out.print("Inside update to-do");
+//		System.out.println(model.getAttribute("todo"));
+		
+		todoService.updateTodo(todo);
+		return "redirect:list-todos";
 	}
 } 
