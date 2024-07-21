@@ -17,6 +17,8 @@
 		</fieldset>
        <input type="submit" class="btn btn-success" />
       </form:form>
+     
+     </div>
 
 	<%@ include file="common/footer.jspf" %>	
 	
