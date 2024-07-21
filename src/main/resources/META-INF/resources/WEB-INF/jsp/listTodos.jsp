@@ -7,6 +7,7 @@
     />
     <title>To Do Page</title>
   </head>
+  <%@ include file="common/navigation.jspf" %>
   <body>
     <div class="container">
       <div>Welcome to Todo - ${name}</div>
