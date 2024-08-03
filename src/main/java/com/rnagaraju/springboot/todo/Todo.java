@@ -2,10 +2,13 @@ package com.rnagaraju.springboot.todo;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 
+@Entity
 public class Todo {
-	
+	@Id
 	private int id;
 	private String username;
 	
