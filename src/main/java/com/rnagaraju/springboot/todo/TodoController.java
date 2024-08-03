@@ -28,9 +28,17 @@ public class TodoController {
 	@RequestMapping(value="list-todos")
 //	@ResponseBody
 	public String listAllTodos(ModelMap model) {
-		List<Todo> todos=todoService.findByUsername("in28minutes");
+		String username=(String)model.get("name");
+		List<Todo> todos=todoService.findByUsername(username);
 		model.put("todos", todos);
 		return "listTodos"; 
+	}
+	
+	@RequestMapping("/todo")
+//	@ResponseBody
+	public String welcome(ModelMap model) {
+		model.put("name","Rahul");
+		return "welcome";
 	}
 	
 	@RequestMapping(value="add-todo",method=RequestMethod.GET)
