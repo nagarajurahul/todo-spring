@@ -3,6 +3,8 @@ package com.rnagaraju.springboot.todo;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -28,16 +30,21 @@ public class TodoController {
 	@RequestMapping(value="list-todos")
 //	@ResponseBody
 	public String listAllTodos(ModelMap model) {
-		String username=(String)model.get("name");
+		String username = getLoggedinUsername();
 		List<Todo> todos=todoService.findByUsername(username);
 		model.put("todos", todos);
 		return "listTodos"; 
+	}
+
+	private String getLoggedinUsername() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return authentication.getName();
 	}
 	
 	@RequestMapping("/todo")
 //	@ResponseBody
 	public String welcome(ModelMap model) {
-		model.put("name","Rahul");
+		model.put("name",getLoggedinUsername());
 		return "welcome";
 	}
 	
@@ -57,7 +64,7 @@ public class TodoController {
 		}
 
 		//Two-way bind from JSP for description and to do object basically
-		String username=(String) model.get("name"); 
+		String username=getLoggedinUsername();
 		todoService.addTodo(username, todo.getDescription(), todo.getDueDate(), false);
 		return "redirect:list-todos";
 	}
@@ -92,7 +99,7 @@ public class TodoController {
 //		System.out.print("Inside update to-do");
 //		System.out.println(model.getAttribute("todo"));
 		
-		String username=(String) model.get("name"); 
+		String username = getLoggedinUsername(); 
 		todo.setUsername(username);
 		
 		todoService.updateTodo(todo);
