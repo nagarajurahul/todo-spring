@@ -16,22 +16,25 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.validation.Valid;
 
-//@Controller
+@Controller
 @SessionAttributes("name")
-public class TodoController {
+public class TodoControllerJpa {
 	
-	TodoService todoService;
+//	TodoService todoService;
+	TodoRepository todoRepository;
 	
-	public TodoController(TodoService todoService) {
+//	public TodoControllerJpa(TodoService todoService) {
+	public TodoControllerJpa(TodoRepository todoRepository) {
 		super();
-		this.todoService=todoService;
+//		this.todoService=todoService;
+		this.todoRepository=todoRepository;
 	}
 
 	@RequestMapping(value="list-todos")
 //	@ResponseBody
 	public String listAllTodos(ModelMap model) {
 		String username = getLoggedinUsername();
-		List<Todo> todos=todoService.findByUsername(username);
+		List<Todo> todos=todoRepository.findByUsername(username);
 		model.put("todos", todos);
 		return "listTodos"; 
 	}
@@ -65,14 +68,16 @@ public class TodoController {
 
 		//Two-way bind from JSP for description and to do object basically
 		String username=getLoggedinUsername();
-		todoService.addTodo(username, todo.getDescription(), todo.getDueDate(), false);
+		todoRepository.save(todo);
+//		todoService.addTodo(username, todo.getDescription(), todo.getDueDate(), false);
 		return "redirect:list-todos";
 	}
 	
 	@RequestMapping(value="delete-todo",method=RequestMethod.GET)
 //	@ResponseBody
 	public String deleteTodo(@RequestParam int id) {
-		todoService.deleteTodoById(id);
+		todoRepository.deleteById(id);
+//		todoService.deleteTodoById(id);
 		return "redirect:list-todos";
 		
 	}
@@ -80,13 +85,15 @@ public class TodoController {
 	@RequestMapping(value="show-todo",method=RequestMethod.GET)
 	@ResponseBody
 	public String showTodo(@RequestParam int id) {
-		return todoService.findTodoById(id).toString();
+		return todoRepository.findById(id).toString();
+//		return todoService.findTodoById(id).toString();
 	}
 	
 	@RequestMapping(value="update-todo",method=RequestMethod.GET)
 //	@ResponseBody
 	public String showUpdateTodoPage(ModelMap model,@RequestParam int id) {
-		Todo todo=todoService.findTodoById(id);
+//		Todo todo=todoService.findTodoById(id);
+		Todo todo=todoRepository.findById(id).get();
 		model.put("todo", todo);
 		System.out.println(model.getAttribute("todo"));
 		return "updateTodo";
@@ -102,7 +109,8 @@ public class TodoController {
 		String username = getLoggedinUsername(); 
 		todo.setUsername(username);
 		
-		todoService.updateTodo(todo);
+		todoRepository.save(todo);
+//		todoService.updateTodo(todo);
 		return "redirect:list-todos";
 	}
 } 
